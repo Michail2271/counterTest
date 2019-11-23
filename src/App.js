@@ -1,26 +1,47 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import s from './styles.module.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+
+class counter extends React.Component {
+
+  state = {
+    startValue: 0,
+    maxValue: 5,
+    currentValue: 0
+  };
+
+
+  pluse = () => {
+    if (this.state.currentValue < this.state.maxValue) {
+      this.setState({ currentValue: this.state.currentValue +1 })
+    }
+  }
+
+  resest=()=>{
+    if (this.state.currentValue) {
+      this.setState({currentValue: this.state.startValue})
+    }
+  }
+
+  
+
+  render = () => {
+
+    let  disabled = this.state.currentValue === this.state.maxValue ? true: false;
+    let changecolor = this.state.currentValue === this.state.maxValue ? s.color: '';
+
+    return (
+      <div className={s.container}>
+        <div className={s.block}>
+          <div className={changecolor}>{this.state.currentValue}</div>
+          <button onClick={this.pluse} disabled={disabled}>pluse</button>
+          <button onClick={this.resest}>resest</button>
+        </div>
+      </div>
+    )
+  }
 }
 
-export default App;
+export default counter;
